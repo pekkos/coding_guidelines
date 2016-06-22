@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="public/ico/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <title>
+      HTML: Bilia Web Code Guidelines
+    </title>
+
+    <link rel="stylesheet" href="css/mdo.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Mono&subset=latin,cyrillic">
+
+  </head>
+  <body>
+
+    <header class="masthead">
+  <div class="container">
+    <span class="icon">&#9997;</span>
+    <h1><a href="index.html">Bilia Web Code Guidelines</a></h1>
+    <p class="lead">Standards for developing flexible, durable, and sustainable <a href="html.html">HTML</a>, <a href="css.html">CSS</a> and <a href="js.html">Javascript</a>.</p>
+  </div>
+</header>
+
+
+<div class="heading" id="toc">
+  <h2>HTML - Table of contents</h2>
+</div>
+
+<div class="section toc">
+  <div class="col">
+    <h4><a href="#html">HTML</a></h4>
+    <ul>
+      <li><a href="#html-syntax">Syntax</a></li>
+      <li><a href="#html-attributes">Attributes and values</a></li>
+      <li><a href="#html-comments">Comments</a></li>
+      <li><a href="#html-comments-mustache">Comments in Mustache files</a></li>
+      <li><a href="#html-validation">Write valid HTML</a></li>
+      <li><a href="#html-doctype">HTML5 doctype</a></li>
+      <li><a href="#html-lang">Language attribute</a></li>
+      <li><a href="#html-encoding">Character encoding</a></li>
+      <li><a href="#html-viewport">Viewport meta tag</a></li>
+      <li><a href="#html-ie-compatibility-mode">Internet Explorer compatibility mode</a></li>
+      <li><a href="#html-style-script">CSS and JavaScript includes</a></li>
+      <li><a href="#html-practicality">Practicality over purity</a></li>
+      <li><a href="#html-reducing-markup">Reducing markup</a></li>
+      <li><a href="#html-attribute-order">Attribute order</a></li>
+      <li><a href="#html-boolean-attributes">Boolean attributes</a></li>
+      <li><a href="#html-special-characters">Special characters</a></li>
+      <li><a href="#html-anchors">HTML anchors</a></li>
+<!--      <li><a href="#html-javascript">JavaScript generated markup</a></li> -->
+    </ul>
+  </div>
+<!--  <div class="col">
+    <h4><a href="#html5-aria">HTML5 and ARIA</a></h4>
+    <ul>
+     <li><a href="#css-syntax">CSS syntax</a></li>
+    </ul>
+  </div>
+-->
+</div>
+
+
+
+<div class="heading" id="html">
+  <h2>HTML</h2>
+</div>
+
+<div class="section" id="html-syntax">
+  <div class="col">
+    <h3>Syntax</h3>
+    <ul>
+      <li>Use soft tabs with two spaces—they're the only way to guarantee code renders the same in any environment.</li>
+      <li>Nested elements should be indented once (two spaces).</li>
+      <li>Always use double quotes, never single quotes, on attributes.</li>
+      <li>Don't include a trailing slash in self-closing elements—the <a href="http://dev.w3.org/html5/spec-author-view/syntax.html#syntax-start-tag">HTML5 spec</a> says they're optional.</li>
+      <li>Don’t omit optional closing tags (e.g. <code>&lt;/li&gt;</code> or <code>&lt;/body&gt;</code>).</li>
+    </ul>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Page title<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;images/company-logo.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Company&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&quot;hello-world&quot;</span><span class="nt">&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+
+  </div>
+</div>
+
+
+
+<div class="section" id="html-attributes">
+  <div class="col">
+    <h3>Attributes and values</h3>
+    <ul>
+      <li>Element and attribute names must be in all lower case</li>
+      <li>Attribute values, even numeric attributes should be quoted—for</li>
+    </ul>
+  </div>
+  <div class="col">
+
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- Wrong --&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">CLASS=</span><span class="s">&quot;avatar&quot;</span> <span class="na">SRC=</span><span class="s">&quot;...&quot;</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Correct --&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">&quot;avatar&quot;</span> <span class="na">src=</span><span class="s">&quot;...&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- Wrong --&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">age</span> <span class="na">type=</span><span class="s">text</span> <span class="na">size=</span><span class="s">3</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Correct --&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;age&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+<div class="section" id="html-comments">
+  <div class="col">
+    <h3>Comments</h3>
+    <p>Insert ending comment after closing tag of the HTML section in this format: <code>&lt;!-- END: name-of-class-or-id --&gt;</code>. </p>
+    <p>Do not use starting comment.</p>
+  </div>
+  <div class="col">
+
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;crumbtrail&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;...&quot;</span> <span class="na">title=</span><span class="s">&quot;Go to homepage&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;em</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/em</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/a</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/p</span><span class="nt">&gt;</span> <span class="c">&lt;!-- END: .crumbtrail --&gt;</span>
+    </code></pre></div>
+  </div>
+</div>
+
+
+
+
+<div class="section" id="html-comments-mustache">
+  <div class="col">
+    <h3>Comments in Mustache files</h3>
+    <p>To clarify the use a module, please include a comment in the this format</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!--
+
+  * Header Logo Molecule
+  * ====================
+  * Default wrapper is a div element
+  * The div contains an anchor link to the start page
+  *
+  * On the start page the wrapper is a h1 element
+  * The h1 should not have an anchor link
+  *
+  * The logotype is an SVG file
+  * Fallback for IE<=8 and Android 2.x is a png file
+  * The PNG file gets js injected with Modernizr
+
+--&gt;</span>
+    </code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="html-validation">
+  <div class="col">
+    <h3>Write valid HTML</h3>
+    <p>All HTML code must be valid and well formed. You must validate it against the HTML specification and check for errors in the HTML markup using the <a href="http://validator.w3.org">W3C Markup Validation Service</a> or similar services.</p>
+  </div>
+</div>
+
+
+
+<div class="section" id="html-doctype">
+  <div class="col">
+    <h3>HTML5 doctype</h3>
+    <p>Enforce standards mode and more consistent rendering in every browser possible with this simple doctype at the beginning of every HTML page.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="html-lang">
+  <div class="col">
+    <h3>Language attribute</h3>
+    <p>From the HTML5 spec:</p>
+    <blockquote>
+      <p>Authors are encouraged to specify a lang attribute on the root html element, giving the document's language. This aids speech synthesis tools to determine what pronunciations to use, translation tools to determine what rules to use, and so forth.</p>
+    </blockquote>
+    <p>Read more about the <code>lang</code> attribute <a href="http://www.w3.org/html/wg/drafts/html/master/semantics.html#the-html-element">in the spec</a>.</p>
+    <p>Head to Sitepoint for a <a href="http://reference.sitepoint.com/html/lang-codes">list of language codes</a>.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en-us&quot;</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="html-ie-compatibility-mode">
+  <div class="col">
+    <h3>IE compatibility mode</h3>
+    <p>Internet Explorer supports the use of a document compatibility <code>&lt;meta&gt;</code> tag to specify what version of IE the page should be rendered as. Unless circumstances require otherwise, it's most useful to instruct IE to use the latest supported mode with <strong>edge mode</strong>.</p>
+    <p>For more information, <a href="http://stackoverflow.com/questions/6771258/whats-the-difference-if-meta-http-equiv-x-ua-compatible-content-ie-edge-e">read this awesome Stack Overflow article</a>.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=Edge&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="html-encoding">
+  <div class="col">
+    <h3>Character encoding</h3>
+    <p>Quickly and easily ensure proper rendering of your content by declaring an explicit character encoding. When doing so, you may avoid using character entities in your HTML, provided their encoding matches that of the document (generally UTF-8).</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="html-viewport">
+  <div class="col">
+    <h3>Viewport meta tag</h3>
+    <p>In order to make a mobile browser to apply media queries instead of zooming out the full large width view, the viewport meta tag must be used correctly. The width value ensures that the mobile browser reports its screen width, and the initial-scale value makes sure the view is unscaled.</p>
+    <p>However, do not add the maximum-scale=1 value for the width attribute. Doing so prevents a user from zooming into the page on a mobile browser, and is thas bad for accessibility reasons.
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+<div class="section" id="html-style-script">
+  <div class="col">
+    <h3>CSS and JavaScript includes</h3>
+    <p>Per HTML5 spec, typically there is no need to specify a <code>type</code> when including CSS and JavaScript files as <code>text/css</code> and <code>text/javascript</code> are their respective defaults.</p>
+    <h4>HTML5 spec links</h4>
+    <ul>
+      <li><a href="http://www.w3.org/TR/2011/WD-html5-20110525/semantics.html#the-link-element">Using link</a></li>
+      <li><a href="http://www.w3.org/TR/2011/WD-html5-20110525/semantics.html#the-style-element">Using style</a></li>
+      <li><a href="http://www.w3.org/TR/2011/WD-html5-20110525/scripting-1.html#the-script-element">Using script</a></li>
+    </ul>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- External CSS --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;code-guide.css&quot;</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- In-document CSS --&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+  <span class="c">/* ... */</span>
+<span class="nt">&lt;/style&gt;</span>
+
+<span class="c">&lt;!-- JavaScript --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;code-guide.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="html-practicality">
+  <div class="col">
+    <h3>Practicality over purity</h3>
+    <p>Strive to maintain HTML standards and semantics, but not at the expense of practicality. Use the least amount of markup with the fewest intricacies whenever possible.</p>
+  </div>
+</div>
+
+
+<div class="section" id="html-reducing-markup">
+  <div class="col">
+    <h3>Reducing markup</h3>
+    <p>Whenever possible, avoid superfluous parent elements when writing HTML. Many times this requires iteration and refactoring, but produces less HTML. Take the following example:</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- Not so great --&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;avatar&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;...&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/span&gt;</span>
+
+<span class="c">&lt;!-- Better --&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">&quot;avatar&quot;</span> <span class="na">src=</span><span class="s">&quot;...&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="html-attribute-order">
+  <div class="col">
+    <h3>Attribute order</h3>
+    <p>HTML attributes should come in this particular order for easier reading of code.</p>
+    <ul>
+      <li><code>class</code></li>
+      <li><code>id</code>, <code>name</code></li>
+      <li><code>data-*</code></li>
+      <li><code>src</code>, <code>for</code>, <code>type</code>, <code>href</code></li>
+      <li><code>title</code>, <code>alt</code></li>
+      <li><code>aria-*</code>, <code>role</code></li>
+    </ul>
+    <p>Classes make for great reusable components, so they come first. Ids are more specific and should be used sparingly (e.g., for in-page bookmarks), so they come second.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;...&quot;</span> <span class="na">id=</span><span class="s">&quot;...&quot;</span> <span class="na">data-modal=</span><span class="s">&quot;toggle&quot;</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>
+  Example link
+<span class="nt">&lt;/a&gt;</span>
+
+<span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;...&quot;</span> <span class="na">alt=</span><span class="s">&quot;...&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="html-boolean-attributes">
+  <div class="col">
+    <h3>Boolean attributes</h3>
+    <p>A boolean attribute is one that needs no declared value. XHTML required you to declare a value, but HTML5 has no such requirement.</p>
+    <p>For further reading, consult the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#boolean-attributes">WhatWG section on boolean attributes</a>:</p>
+    <blockquote>
+      <p>The presence of a boolean attribute on an element represents the true value, and the absence of the attribute represents the false value.</p>
+    </blockquote>
+    <p>If you <em>must</em> include the attribute's value, and <strong>you don't need to</strong>, follow this WhatWG guideline:</p>
+    <blockquote>
+      <p>If the attribute is present, its value must either be the empty string or [...] the attribute's canonical name, with no leading or trailing whitespace.</p>
+    </blockquote>
+    <p><strong>In short, don't add a value.</strong></p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">disabled</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span> <span class="na">checked</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;select&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span> <span class="na">selected</span><span class="nt">&gt;</span>1<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+<div class="section" id="html-special-characters">
+  <div class="col">
+    <h3>Special characters</h3>
+    <p>Encode special characters, for example:</p>
+    <ul>
+      <li><code>&amp;amp;</code> &amp;</li>
+      <li><code>&amp;copy;</code> &copy;</li>
+      <li><code>&amp;raquo;</code> &raquo;</li>
+      <li><code>&amp;gt;</code> &gt;</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="section" id="html-anchors">
+  <div class="col">
+    <h3>HTML anchors</h3>
+    <p>When you need to link to the section inside a HTML document use ID attribute</p>
+    <p>If it isn't possible to use IDs (for example because of ASP.NET platform), use a named anchor</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- link using ID attribute --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#section&quot;</span><span class="nt">&gt;</span>link<span class="nt">&lt;/a</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;section&quot;</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Use named anchors, if ID is not possible --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#section&quot;</span><span class="nt">&gt;</span>link<span class="nt">&lt;/a</span><span class="nt">&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;section&quot;</span><span class="nt">&gt;</span>...<span class="nt">&lt;/a</span><span class="nt">&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+<!-- TODO: Write more stuff here! :-)
+
+<div class="heading" id="html5-aria">
+  <h2>HTML5 and ARIA</h2>
+</div>
+
+-->
+
+<!-- TODO Include this section? Rewrite?
+<div class="section" id="html-javascript">
+  <div class="col">
+    <h3>JavaScript generated markup</h3>
+    <p>Writing markup in a JavaScript file makes the content harder to find, harder to edit, and less performant. Avoid it whenever possible.</p>
+  </div>
+</div>
+-->
+
+
+
+
+<!--
+
+## Accessibility
+
+Adhere to basic accessibility principles when writing HTML.
+
+### General
+
+- Use h1 - h6 to identify headings - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H4)
+- Use structural elements to group links - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H50)
+- Provide definitions for abbreviations by using the abbr and acronym elements - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H28)
+- Use language attributes on html element to identify the default language of a document - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H57)
+
+
+
+### Tables
+
+- Use table markup to present tabular information - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H51)
+- Use the scope attribute to associate header cells and data cells in data tables - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H63)
+- Use the summary attribute of the table element to give an overview of data tables - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H73)
+
+
+
+
+### Forms
+
+- Provide submit buttons - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H32)
+- Use alt attributes on images used as submit buttons - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H36)
+- Use label elements to associate text labels with form controls - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H44)
+- Use the title attribute to identify form controls when the label element cannot be used - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H65)
+- Indicate required form controls - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H90)
+
+
+
+
+### Images
+
+- Use alt attributes on img elements - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H37)
+- Use null alt text and no title attribute on img elements for images that Assistive Technology should ignore - [Read more &raquo;](http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/html.html#H67)
+
+
+
+# Jonas/Telia #
+
+
+HTML 5 specific elements
+
+
+The use of the new so called semantic HTML elements, such as Header, Footer, Nav, Aside, Section and Article should not be used, since they are not supported in older browsers unless a certain javascript shim is injected to the page. Other reasons for not using these new elements are connected to the HTML document outline.
+
+Use <div> elements with suitable class names instead.
+
+
+WAI-ARIA landmark roles
+
+
+Instead of using HTML 5 elements such as Header and Footer, use WAI-ARIA landmark roles to tell the purpose of an element. role=“banner” should be used for the page header, and role=“contentinfo” should be used for the page footer.
+
+More inormation on WAI-ARIA roles can be found at http://www.w3.org/TR/wai-aria/roles
+Available landmark roles can be found at http://www.w3.org/TR/wai-aria/roles#landmark_roles
+
+
+
+HTML 5 specific input types
+
+Use the new input types such as search, range, datetime, email, number, tel and so on, where it’s appropriate instead of just using type=“text”. The benefit is that modern browsers, including mobile browsers, can make use of these new input types and present browser tailored gui components and controls.
+
+Using type=“search” makes a smart phone browser present a search button instead of a regular ok button in the key pad. Using type=“number” turns the keypad into a numeric one.
+
+More information about input types at http://www.w3schools.com/html/html5_form_input_types.asp
+
+-->
+
+
+
+
+
+
+
+
+
+<footer class="footer">
+<!--
+  <p>Heavily inspired by <a href="http://mdo.github.io/code-guide/">Code Guide by @mdo</a>, <a href="http://xhtmlized.com/blog/making-our-coding-standards-public/">xhtmlized</a>, <a href="https://github.com/necolas/idiomatic-css">Idiomatic CSS</a>, <a href="https://github.com/styleguide/">Github Styleguide</a> and <a href="https://github.com/csswizardry/CSS-Guidelinesji">CSS guidelines by Harry Roberts</a></p>
+-->
+  <br>
+  <a class="logo" href="index.html"><img src="" alt="">XX</a>
+</footer>
+
+</body>
+
+</html>

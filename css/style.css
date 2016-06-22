@@ -1,0 +1,42 @@
+
+body {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  font-family: Arial, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+}
+
+.main-nav {
+  background-color: #333;
+  font-size: 18px;
+}
+
+.main-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-nav li {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px 20px 10px 20px;
+  letter-spacing: 0.2em;
+}
+
+.main-nav a {
+  color: #fff;
+}
+
+.main-nav .logo {
+  display: block;
+  width: 160px;
+  height: 46px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0) url(bilia.png) left top no-repeat;
+  text-indent: -999em;
+}

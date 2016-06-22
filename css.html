@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link href="public/ico/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <title>
+      CSS: Bilia Web Code Guidelines
+    </title>
+
+    <link rel="stylesheet" href="css/mdo.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Mono&subset=latin,cyrillic">
+
+  </head>
+  <body>
+
+    <header class="masthead">
+  <div class="container">
+    <span class="icon">&#9997;</span>
+    <h1><a href="index.html">Bilia Web Code Guidelines</a></h1>
+    <p class="lead">Standards for developing flexible, durable, and sustainable <a href="html.html">HTML</a>, <a href="css.html">CSS</a> and <a href="js.html">Javascript</a>.</p>
+  </div>
+</header>
+
+
+<div class="heading" id="toc">
+  <h2>CSS - Table of contents</h2>
+</div>
+
+<div class="section toc">
+  <div class="col">
+    <h4><a href="#css">CSS</a></h4>
+    <ul>
+      <li><a href="#css-syntax">CSS syntax</a></li>
+      <li><a href="#css-color-notation">Color notaion</a></li>
+      <li><a href="#css-declaration-order">Declaration order</a></li>
+      <li><a href="#css-important">!important</a></li>
+      <li><a href="#css-import">Don't use @import</a></li>
+      <li><a href="#css-media-queries">Media query placement</a></li>
+      <li><a href="#css-prefixed-properties">Prefixed properties</a></li>
+      <li><a href="#css-single-declarations">Rules with single declarations</a></li>
+      <li><a href="#css-shorthand">Shorthand notation</a></li>
+      <li><a href="#css-selectors">Selectors</a></li>
+      <li><a href="#css-organization">Organization</a></li>
+      <li><a href="#css-table-of-contents">Table of contents</a></li>
+      <li><a href="#css-section-titles">Section titles</a></li>
+      <li><a href="#css-comments">Comments</a></li>
+      <li><a href="#css-debugging">Debugging</a></li>
+    </ul>
+  </div>
+  <div class="col">
+    <h4><a href="#modular">Modular CSS</a></h4>
+    <ul>
+      <li><a href="#modular-naming-conventions">Naming conventions</a></li>
+      <li><a href="#modular-class-names">Class names</a></li>
+      <li><a href="#modular-singular-or-plural">Singular or plural</a></li>
+      <li><a href="#modular-states">States</a></li>
+      <li><a href="#modular-javascript-hooks">Javascript hooks</a></li>
+    </ul>
+
+    <h4><a href="#layout">Layout</a></h4>
+    <ul>
+      <li><a href="#layout-widths-and-grids">Widths and grids</a></li>
+      <li><a href="#layout-responsive-web-design">Responsive Web Design</a></li>
+      <li><a href="#layout-legacy-internet-explorer">Legacy Internet Explorer</a></li>
+    </ul>
+
+    <h4><a href="#sass">Preprocessing with Sass</a></h4>
+    <ul>
+      <li><a href="#sass-using">Using Sass</a></li>
+      <li><a href="#sass-nesting">Nesting in Sass</a></li>
+      <li><a href="#sass-resources">Sass resources</a></li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="heading" id="css">
+  <h2>CSS</h2>
+</div>
+
+<div class="section" id="css-syntax">
+  <div class="col">
+    <h3>Syntax</h3>
+    <ul>
+      <li>Use soft tabs with two spaces—they're the only way to guarantee code renders the same in any environment.</li>
+      <li>When grouping selectors, keep individual selectors to a single line.</li>
+      <li>Include one space before the opening brace of declaration blocks for legibility.</li>
+      <li>Place closing braces of declaration blocks on a new line.</li>
+      <li>Include one space after <code>:</code> for each declaration.</li>
+      <li>Each declaration should appear on its own line for more accurate error reporting.</li>
+      <li>End all declarations with a semi-colon. The last declaration's is optional, but your code is more error prone without it.</li>
+      <li>Comma-separated property values should include a space after each comma (e.g., <code>box-shadow</code>).</li>
+      <li>Don't include spaces after commas <em>within</em> <code>rgb()</code>, <code>rgba()</code>, <code>hsl()</code>, <code>hsla()</code>, or <code>rect()</code> values. This helps differentiate multiple color values (comma, no space) from multiple property values (comma with space).</li>
+      <li>Don't prefix property values or color parameters with a leading zero (e.g., <code>.5</code> instead of <code>0.5</code> and <code>-.5px</code> instead of <code>-0.5px</code>).</li>
+<!--      <li>Lowercase all hex values, e.g., <code>#fff</code>. Lowercase letters are much easier to discern when scanning a document as they tend to have more unique shapes.</li> -->
+<!--      <li>Use shorthand hex values where available, e.g., <code>#fff</code> instead of <code>#ffffff</code>.</li> -->
+      <li>Quote attribute values in selectors, e.g., <code>input[type="text"]</code>. <a href="http://mathiasbynens.be/notes/unquoted-attribute-values#css">They’re only optional in some cases</a>, and it’s a good practice for consistency.</li>
+      <li>Avoid specifying units for zero values, e.g., <code>margin: 0;</code> instead of <code>margin: 0px;</code>.</li>
+    </ul>
+    <p>Questions on the terms used here? See the <a href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets#Syntax">syntax section of the Cascading Style Sheets article</a> on Wikipedia.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Bad CSS */</span>
+<span class="nc">.selector</span><span class="o">,</span> <span class="nc">.selector-secondary</span><span class="o">,</span> <span class="nc">.selector</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="nt">text</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span><span class="m">15px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span><span class="m">0px</span> <span class="m">0px</span> <span class="m">15px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span><span class="m">0px</span> <span class="m">1px</span> <span class="m">2px</span> <span class="m">#CCC</span><span class="o">,</span><span class="k">inset</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">0</span> <span class="m">rgb(255, 255, 255)</span>
+<span class="p">}</span>
+
+<span class="c">/* Good CSS */</span>
+<span class="nc">.selector</span><span class="o">,</span>
+<span class="nc">.selector-secondary</span><span class="o">,</span>
+<span class="nc">.selector</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+  <span class="k">margin-bottom</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,.</span><span class="m">5</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="m">#ccc</span><span class="o">,</span> <span class="k">inset</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">0</span> <span class="m">rgb(255,255,255)</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="css-color-notation">
+  <div class="col">
+    <h3>Color notation</h3>
+    <p>Use only rgb notation for colors. Whenever a semi-transparent color is needed the transformation from rgb into rgba is easily done.</p>
+<!--    <p>For a complete list of properties and their order, please see <a href="http://twitter.github.com/recess">Recess</a>.</p> -->
+  </div>
+  <div class="col">
+<div class="highlight"><pre><code class="css"><span class="nc">.awesomeness</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">rgba(255,101,255,.3)</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">rgb(255,101,255)</span><span class="p">;</span>
+  <span class="k">border-color</span><span class="o">:</span> <span class="m">rgba(255,101,255,.6)</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="css-import">
+  <div class="col">
+    <h3>Don't use <code>@import</code></h3>
+    <p>Compared to <code>&lt;link&gt;</code>s, <code>@import</code> is slower, adds extra page requests, and can cause other unforeseen problems. Avoid them and instead opt for an alternate approach:</p>
+    <ul>
+      <li>Use multiple <code>&lt;link&gt;</code> elements</li>
+      <li>Compile your CSS with a preprocessor like Sass or Less into a single file</li>
+      <li>Concatenate your CSS files with features provided in Rails, Jekyll, and other environments</li>
+    </ul>
+    <p>For more information, <a href="http://www.stevesouders.com/blog/2009/04/09/dont-use-import/">read this article by Steve Souders</a>.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- Use link elements --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;core.css&quot;</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Avoid @imports --&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+  <span class="k">@import</span> <span class="nt">url</span><span class="o">(</span><span class="s2">&quot;more.css&quot;</span><span class="o">)</span><span class="p">;</span>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="css-declaration-order">
+  <div class="col">
+    <h3>Declaration order</h3>
+    <p>Related property declarations should be grouped together following the order:</p>
+    <ol>
+      <li>Positioning</li>
+      <li>Box model</li>
+      <li>Visual</li>
+      <li>Typographic</li>
+    </ol>
+    <p>Positioning comes first because it can remove an element from the normal flow of the document and override box model related styles. The box model comes next as it dictates a component's dimensions and placement.</p>
+    <p>Everything else takes place <em>inside</em> the component or without impacting the previous two sections, and thus they come last.</p>
+<!--    <p>For a complete list of properties and their order, please see <a href="http://twitter.github.com/recess">Recess</a>.</p> -->
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="nc">.declaration-order</span> <span class="p">{</span>
+  <span class="c">/* Positioning */</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">bottom</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="o">:</span> <span class="m">100</span><span class="p">;</span>
+
+  <span class="c">/* Box-model */</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10px 30px</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">5px 15px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+
+  <span class="c">/* Visual */</span>
+  <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#e5e5e5</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">3px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f5f5f5</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+
+  <span class="c">/* Typography */</span>
+  <span class="k">font</span><span class="o">:</span> <span class="k">normal</span> <span class="m">13px</span> <span class="s2">&quot;Helvetica Neue&quot;</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">1</span><span class="o">.</span><span class="m">5</span><span class="p">;</span>
+  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+
+  <span class="c">/* Misc */</span>
+  <span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+  <span class="k">cursor</span><span class="o">:</span> <span class="m">pointer</span><span class="p">;</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">&quot;I am generated&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="css-important">
+  <div class="col">
+    <h3>!important</h3>
+    <p>It is okay to use `!important` on helper classes only. To add `!important` preemptively is fine, e.g. <code>.error { color: red !important }</code>, as you know you will <em>always</em> want this rule to take precedence.</p>
+	<p>Using `!important` reactively, e.g. to get yourself out of nasty specificity situations, is not advised. Rework your CSS and try to combat these issues by refactoring your selectors. Keeping your selectors short and avoiding IDs will help out here massively.
+</p>
+  </div>
+</div>
+
+
+<div class="section" id="css-import">
+  <div class="col">
+    <h3>Don't use <code>@import</code></h3>
+    <p>Compared to <code>&lt;link&gt;</code>s, <code>@import</code> is slower, adds extra page requests, and can cause other unforeseen problems. Avoid them and instead opt for an alternate approach:</p>
+    <ul>
+      <li>Use multiple <code>&lt;link&gt;</code> elements</li>
+      <li>Compile your CSS with a preprocessor like Sass or Less into a single file</li>
+      <li>Concatenate your CSS files with features provided in Rails, Jekyll, and other environments</li>
+    </ul>
+    <p>For more information, <a href="http://www.stevesouders.com/blog/2009/04/09/dont-use-import/">read this article by Steve Souders</a>.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- Use link elements --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;core.css&quot;</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Avoid @imports --&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+  <span class="k">@import</span> <span class="nt">url</span><span class="o">(</span><span class="s2">&quot;more.css&quot;</span><span class="o">)</span><span class="p">;</span>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="css-media-queries">
+  <div class="col">
+    <h3>Media query placement</h3>
+    <p>Place media queries as close to their relevant rule sets whenever possible. Don't bundle them all in a separate stylesheet or at the end of the document. Doing so only makes it easier for folks to miss them in the future. Here's a typical setup.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="nc">.element</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.element-avatar</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.element-selected</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+
+<span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">480px</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nc">.element</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+  <span class="nc">.element-avatar</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+  <span class="nc">.element-selected</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="css-prefixed-properties">
+  <div class="col">
+    <h3>Prefixed properties</h3>
+    <p>When using vendor prefixed properties, indent each property such that the declaration's value lines up vertically for easy multi-line editing.</p>
+    <p>In Textmate, use <strong>Text &rarr; Edit Each Line in Selection</strong> (&#8963;&#8984;A). In Sublime Text 2, use <strong>Selection &rarr; Add Previous Line</strong> (&#8963;&#8679;&uarr;) and <strong>Selection &rarr;  Add Next Line</strong> (&#8963;&#8679;&darr;).</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Prefixed properties */</span>
+<span class="nc">.selector</span> <span class="p">{</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,.</span><span class="m">15</span><span class="p">);</span>
+          <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,.</span><span class="m">15</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="css-single-declarations">
+  <div class="col">
+    <h3>Single declarations</h3>
+    <p>In instances where a rule set includes <strong>only one declaration</strong>, consider removing line breaks for readability and faster editing. Any rule set with multiple declarations should be split to separate lines.</p>
+    <p>The key factor here is error detection—e.g., a CSS validator stating you have a syntax error on Line 183. With a single declaration, there's no missing it. With multiple declarations, separate lines is a must for your sanity.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Single declarations on one line */</span>
+<span class="nc">.span1</span> <span class="p">{</span> <span class="k">width</span><span class="o">:</span> <span class="m">60px</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.span2</span> <span class="p">{</span> <span class="k">width</span><span class="o">:</span> <span class="m">140px</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.span3</span> <span class="p">{</span> <span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c">/* Multiple declarations, one per line */</span>
+<span class="nc">.sprite</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+  <span class="k">background-image</span><span class="o">:</span> <span class="sx">url(../img/sprite.png)</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.icon</span>           <span class="p">{</span> <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.icon-home</span>      <span class="p">{</span> <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-20px</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.icon-account</span>   <span class="p">{</span> <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-40px</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="css-shorthand">
+  <div class="col">
+    <h3>Shorthand notation</h3>
+    <p>Strive to limit use of shorthand declarations to instances where you must explicitly set all the available values. Common overused shorthand properties include:</p>
+    <ul>
+      <li><code>padding</code></li>
+      <li><code>margin</code></li>
+      <li><code>font</code></li>
+      <li><code>background</code></li>
+      <li><code>border</code></li>
+      <li><code>border-radius</code></li>
+    </ul>
+    <p>Often times we don't need to set all the values a shorthand property represents. For example, HTML headings only set top and bottom margin, so when necessary, only override those two values. Excessive use of shorthand properties often leads to sloppier code with unnecessary overrides and unintended side effects.</p>
+    <p>The Mozilla Developer Network has a great article on <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties">shorthand properties</a> for those unfamiliar with notation and behavior.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Bad example */</span>
+<span class="nc">.element</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="sx">url(&quot;image.jpg&quot;)</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">3px</span> <span class="m">3px</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Good example */</span>
+<span class="nc">.element</span> <span class="p">{</span>
+  <span class="k">margin-bottom</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+  <span class="k">background-image</span><span class="o">:</span> <span class="sx">url(&quot;image.jpg&quot;)</span><span class="p">;</span>
+  <span class="k">border-top</span><span class="o">-</span><span class="k">left</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">3px</span><span class="p">;</span>
+  <span class="k">border-top</span><span class="o">-</span><span class="k">right</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">3px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+<div class="section" id="css-selectors">
+  <div class="col">
+    <h3>Selectors</h3>
+    <ul>
+      <li>Use classes over generic element tag for optimum rendering performance.</li>
+      <li>Avoid using several attribute selectors (e.g., <code>[class^="..."]</code>) on commonly occuring components. Browser performance is known to be impacted by these.</li>
+      <li>Keep selectors short and strive to limit the number of elements in each selector to three.</li>
+      <li>Scope classes to the closest parent <strong>only</strong> when necessary (e.g., when not using prefixed classes).</li>
+    </ul>
+    <p>Additional reading:</p>
+    <ul>
+      <li><a href="http://markdotto.com/2012/02/16/scope-css-classes-with-prefixes/">Scope CSS classes with prefixes</a></li>
+      <li><a href="http://markdotto.com/2012/03/02/stop-the-cascade/">Stop the cascade</a></li>
+    </ul>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Bad example */</span>
+<span class="nt">span</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.page-container</span> <span class="nf">#stream</span> <span class="nc">.stream-item</span> <span class="nc">.tweet</span> <span class="nc">.tweet-header</span> <span class="nc">.username</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.avatar</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+
+<span class="c">/* Good example */</span>
+<span class="nc">.avatar</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.tweet-header</span> <span class="nc">.username</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.tweet</span> <span class="nc">.avatar</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+<div class="section" id="css-organization">
+  <div class="col">
+    <h3>Organization</h3>
+    <ul>
+      <li>Organize sections of code by component.</li>
+      <li>Develop a consistent commenting hierarchy.</li>
+      <li>Use consistent white space to your advantage when separating sections of code for scanning larger documents.</li>
+      <li>When using multiple CSS and Sass files, break them down by component instead of page. Pages can be rearranged and components moved.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/*------------------------------------*\
+  $Component section heading
+\*------------------------------------*/</span>
+
+<span class="nc">.element</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+
+<span class="c">/**</span>
+<span class="c"> * Contextual sub-component or modifer</span>
+<span class="c"> */</span>
+
+<span class="nc">.element-heading</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+<div class="section" id="css-table-of-contents">
+  <div class="col">
+    <h3>Table of contents</h3>
+    <p>At the top of stylesheets, maintain a table of contents which will detail the sections contained in the document.</p>
+<p>This will tell the next developer(s) exactly what they can expect to find in this file. Each item in the table of contents maps directly to a section title.</p>
+<p>When working across multiple files with Sass or LESS then each item in the table of contents will map to an include which pulls that section in.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">
+/*------------------------------------*\
+  $CONTENTS
+\*------------------------------------*/
+
+/**
+* CONTENTS............You’re reading it!
+* RESET...............Set our reset defaults
+* FONT-FACE...........Import brand font files
+*/
+</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="css-section-titles">
+  <div class="col">
+    <h3>Section titles</h3>
+    <p>The table of contents would be of no use unless it had corresponding section titles</p>
+<p>The <code>`$`</code> prefixing the name of the section allows us to run a find <code>([Cmd|Ctrl]+F)</code>
+for <code>`$[SECTION-NAME]`</code> and limit our search scope to section titles only.</p>
+<p>Leave five (5) carriage returns between each section. This large chunk of whitespace is quickly noticeable when scrolling quickly
+through larger files.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">
+/*------------------------------------*\
+  $SECTION-TITLE
+\*------------------------------------*/
+
+
+
+
+
+/*------------------------------------*\
+  $NEXT-SECTION
+\*------------------------------------*/
+</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+<div class="section" id="css-comments">
+  <div class="col">
+    <h3>Comments</h3>
+    <p>Code is written and maintained by people. Ensure your code is descriptive, well commented, and approachable by others. Great code comments convey context or purpose. Do not simply reiterate a component or class name.</p>
+    <p>Be sure to write in complete sentences for larger comments and succinct phrases for general notes.</p>
+    <p>You should document and comment our code as much as you possibly can, what may seem or feel transparent and self explanatory to you may not be to another dev. Write a chunk of code then write about it.</p>
+    <p>Use a docBlock-esque commenting style and limit it to 80 characters in length.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Bad example */</span>
+<span class="c">/* Modal header */</span>
+<span class="nc">.modal-header</span> <span class="p">{</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="c">/* Good example */</span>
+<span class="c">/* Wrapping element for .modal-title and .modal-close */</span>
+<span class="nc">.modal-header</span> <span class="p">{</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="c">
+/**
+ * This is a docBlock style comment
+ *
+ * This is a longer description of the comment, describing the code in more
+ * detail. We limit these lines to a maximum of 80 characters in length.
+ *
+ * We can have markup in the comments, and are encouraged to do so:
+ *
+ <span class="c">&lt;div class=foo&gt;</span>
+   <span class="c">&lt;p&gt;Lorem&lt;/p&gt;</span>
+ <span class="c">&lt;/div&gt;</span>
+ *
+ * We do not prefix lines of code with an asterisk as to do so would inhibit
+ * copy and paste.
+ */
+</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="css-debugging">
+  <div class="col">
+    <h3>Debugging</h3>
+    <p>If you run into a CSS problem **take code away before you start adding more** in a bid to fix it. The problem exists in CSS that is already written, more CSS isn’t the right answer!</p>
+	<p>Delete chunks of markup and CSS until your problem goes away, then you can determine which part of the code the problem lies in.</p>
+	<p>It can be tempting to put an `overflow: hidden;` on something to hide the effects of a layout quirk, but overflow was probably never the problem; <em>fix the problem, not its symptoms.</em></p>
+  </div>
+</div>
+
+
+
+
+
+<!--   XXXXXXXXXXXXXXXX -->
+
+
+
+
+<div class="heading" id="modular">
+  <h2>Modular CSS</h2>
+</div>
+
+
+<div class="section" id="modular-naming-conventions">
+  <div class="col">
+    <h3>Naming conventions</h3>
+    <p>Use BEM (Block, Element, Modifier) for class name notation. Read about BEM here:</p>
+	<ul>
+		<li><a href="http://bem.info">BEM</a></li>
+		<li><a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">Getting your head 'round BEM syntax</a></li>
+	</ul>
+
+    <p><abbr title="Block, Element, Modifier">BEM</abbr> is a methodology for naming and classifying CSS selectors in a way to make them a lot more strict, transparent and informative.</p>
+
+	<ul>
+	    <li><code>.block</code> represents the higher level of an abstraction or component.</li>
+	    <li><code>.block__element</code> represents a descendent of <code>.block</code> that helps form <code>.block</code> as a whole. Element corresponds to subclass in SMACSS.</li>
+	    <li><code>.block--modifier</code> represents a different version of <code>.block</code>.</li>
+	</ul>
+
+    <p>The BEM syntax goes well with the following methodologies:</p>
+	<ul>
+		<li><a href="http://smacss.com">SMACSS</a> (Scalable and Modular CSS). Some <a href="http://www.brettjankord.com/2013/03/09/modular-css-thoughts-on-smacss-modules-2/">thoughts on SMACSS modules</a>
+</li>
+		<li><a href="http://bradfrostweb.com/blog/post/atomic-web-design/">Atomic web design</a></li>
+	</ul>
+
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="nc">.block</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+<span class="nc">.block__element</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+<span class="nc">.block--modifier</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+
+<div class="section" id="modular-class-names">
+  <div class="col">
+    <h3>Class names</h3>
+    <ul>
+      <li>Keep classes lowercase and use dashes (not underscores or camelCase) for classes with multiple words. Dashes serve as natural breaks in classes like <code>.nav-primary</code> and <code>.attention-bar</code>).</li>
+      <li>Avoid excessive and arbitrary shorthand notation. <code>.btn</code> is useful for <em>button</em>, but <code>.s</code> doesn't mean anything.</li>
+      <li>Keep classes as short and succinct as possible.</li>
+      <li>Use meaningful names; use structural or purposeful names over presentational.</li>
+      <li>Prefix classes based on the closest parent or base class.</li>
+    </ul>
+    <p>It's also useful to apply many of these same rules when creating Sass and Less variable names.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Bad example */</span>
+<span class="nc">.t</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.red</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.header</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+
+<span class="c">/* Good example */</span>
+<span class="nc">.tweet</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.important</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.tweet-header</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+<div class="section" id="modular-singular-or-plural">
+  <div class="col">
+    <h3>Singular or plural</h3>
+      <p>Class names should be named in singular, but may be named in plural when there is a natural relation to it's subclasses as in lists.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Block named in singular with subclass  */</span>
+<span class="nc">.product-list</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+<span class="nc">.product-list__item</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+
+<span class="c">/* Block named in plural with subclass  */</span>
+<span class="nc">.products</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+<span class="nc">.product</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+<div class="section" id="modular-states">
+  <div class="col">
+    <h3>States</h3>
+      <p>A block may be set in a certain state, often by using javascript. Denote a state class by using the following syntax: <code>.is-state</code></p>
+  </div>
+  <div class="col">
+
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- Block with state set by javascript --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;nav-primary is-expanded&quot;</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div</span><span class="nt">&gt;</span></code>
+
+<code class="css"><span class="c">/* Block styles */</span>
+<span class="nc">.nav-primary</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+
+<span class="c">/* Block styles in expanded state */</span>
+<span class="nc">.nav-primary.is-expanded</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+</code></pre></div>
+
+  </div>
+</div>
+
+
+<!--
+
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- link using ID attribute --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#section&quot;</span><span class="nt">&gt;</span>link<span class="nt">&lt;/a</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;section&quot;</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Use named anchors, if ID is not possible --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#section&quot;</span><span class="nt">&gt;</span>link<span class="nt">&lt;/a</span><span class="nt">&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;section&quot;</span><span class="nt">&gt;</span>...<span class="nt">&lt;/a</span><span class="nt">&gt;</span>
+</code></pre></div>
+
+-->
+
+
+
+
+
+<div class="section" id="modular-javascript-hooks">
+  <div class="col">
+    <h3>Javascript hooks</h3>
+      <p>Use <code>.js-*</code> classes to denote behavior (as opposed to style), but keep these classes out of your CSS.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* This should not go into the CSS */</span>
+<span class="nc">.js-awesomify</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!--   XXXXXXXXXXXXXXXX -->
+
+
+
+
+
+<div class="heading" id="layout">
+  <h2>Layout</h2>
+</div>
+
+
+<div class="section" id="layout-widths-and-grids">
+  <div class="col">
+    <h3>Widths and grids</h3>
+    <p>All components you build should be left totally free of widths; they should always remain fluid and their widths should be governed by a parent/grid system.</p>
+
+	<p>Heights should **never** be be applied to elements. Heights should only be applied to things which had dimensions _before_ they entered the site (i.e. images and sprites). Never ever set heights on `p`s, `ul`s, `div`s, anything. You can often achieve the desired effect with `line-height` which is far more flexible.</p>
+
+	<p>Grid systems should be thought of as shelves. They contain content but are not content in themselves. You put up your shelves then fill them with your stuff. By setting up our grids separately to our components you can move components around a lot more easily than if they had dimensions applied to them; this makes our front-ends a lot more adaptable and quick to work with.</p>
+
+	<p>You should never apply any styles to a grid item, they are for layout purposes only. Apply styling to content _inside_ a grid item. Never, under _any_ circumstances, apply box-model properties to a grid item.</p>
+  </div>
+</div>
+
+
+
+<div class="section" id="layout-responsive-web-design">
+  <div class="col">
+    <h3>Responsive Web Design</h3>
+    <p>Responsive Web Design is a technique that uses fluid layout, flexible media and media queries to cater for optimal user experiences in various screen sizes. Media queries, such as @media (min-width: 400px), are understood by modern browsers, and by setting up breakpoints and combining min-widths with max-widths we can serve different screen sizes different designs.</p>
+	<h4>No media queries</h4>
+<p>The first media query is the lack of media queries, which means that there has to be a basic design and layout for browsers that don’t understand media queries.</p>
+<h4>Media queries and the cascade</h4>
+<p>Using a set of breakpoints, we layer designs onto the basic experience using the CSS cascade from small screens up to large screens. Using the cascade means that a browser in large screen mode gets all the css declarations from small up to large, so at every breakpoint only the additions and alterations need to be included, since the previous declarations are already included.</p>
+<p>Any declarations that are only applicable to a certain screen size range, say in between two breakpoints should be put in a media query that uses both min-width and max-width.</p>
+
+<h4>Breakpoints</h4>
+<p>Breakpoints shouldn’t be set to contemporary, popular device screen sizes. Content should imply where a breakpoint is needed.</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="css"><span class="c">/* Basic styles for all screens and browsers without media query support */</span>
+<span class="nc">.element</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+
+<span class="c">/* Styles for screens wider than 400px */</span>
+<span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">400px</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nc">.element</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c">/* Styles for screens wider than 800px */</span>
+<span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">800px</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nc">.element</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c">/* Styles for screens between 400px and 800px */</span>
+<span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">400px</span><span class="o">)</span> <span class="k">and</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">800px</span><span class="o">)</span><span class="p">{</span>
+  <span class="nc">.element</span> <span class="p">{</span> <span class="o">...</span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+
+<div class="section" id="layout-legacy-internet-explorer">
+  <div class="col">
+    <h3>Legacy Internet Explorer</h3>
+<p>Internet Explorer version 8 and lower don’t understand media queries, so IE7 and IE8 receives a CSS file that adds the cascading CSS without media query declarations. IE6 receives only the basic linear one column experience</p>
+
+<p>Internet Explorer 8 and below don’t handle fluid layouts well, without writing up lots och workarounds in the CSS. Due to this and the fact that these browsers can’t understand neither media queries nor the box-sizing css declaration, IE8 and below should be served with a fixed width layout, and thus not the responsive fluid layout.</p>
+  </div>
+</div>
+
+
+
+
+<!--   XXXXXXXXXXXXXXXX -->
+
+<div class="heading" id="sass">
+  <h2>Preprocessing with Sass</h2>
+</div>
+
+
+
+<div class="section" id="sass-using">
+  <div class="col">
+    <h3>Using Sass</h3>
+    <p>No CSS should be written manually, all CSS has to be compiled from <a href="http://sass-lang.com">Sass</a> files. Sass is a CSS pre-processor, that helps keeping the CSS source code structured and re-usable. Sass comes with a lot of functions, such as declaring variables that can be re-used throughout the project, mixins that can be included and extended into a selector declaration, color management and much more. Sass may also be setup to help serving the right styles for various media query based screen sizes, and to serve legacy versions of Internet Explorer. Get to know the Sass language before coding away.</p>
+
+	<p>Sass needs to be compiled to CSS before loading into a browser. To compile the code, you need a compiler application, such as CodeKit (Mac only) or Prepros (Mac and Windows). There are also command-line tools for compiling. Check the Sass documentation.</p>
+  </div>
+</div>
+
+
+
+<div class="section" id="sass-nesting">
+  <div class="col">
+    <h3>Nesting in Sass</h3>
+    <p>Avoid unnecessary nesting. Just because you can nest, doesn't mean you always should. Consider nesting only if you must scope styles to a parent and if there are multiple elements to be nested. Nest only when it would actually be necessary in vanilla CSS</p>
+    <p>The rule of thumb is the <a href="http://thesassway.com/beginner/the-inception-rule">Inception rule</a>: Never go more than three levels deep!</p>
+  </div>
+  <div class="col">
+    <div class="highlight"><pre><code class="scss"><span class="c1">// Without nesting</span>
+<span class="nc">.table</span> <span class="o">&gt;</span> <span class="nt">thead</span> <span class="o">&gt;</span> <span class="nt">tr</span> <span class="o">&gt;</span> <span class="nt">th</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+<span class="nc">.table</span> <span class="o">&gt;</span> <span class="nt">thead</span> <span class="o">&gt;</span> <span class="nt">tr</span> <span class="o">&gt;</span> <span class="nt">td</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+
+<span class="c1">// With nesting</span>
+<span class="nc">.table</span> <span class="o">&gt;</span> <span class="nt">thead</span> <span class="o">&gt;</span> <span class="nt">tr</span> <span class="p">{</span>
+  <span class="o">&gt;</span> <span class="nt">th</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+  <span class="o">&gt;</span> <span class="nt">td</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c">/* Bad CSS and Sass */</span>
+<span class="nc">.header</span> <span class="p">{</span></span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.header .site-nav</span> <span class="p">{</span></span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.header .site-nav li</span> <span class="p">{</span></span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.header .site-nav li a</span> <span class="p">{</span></span> <span class="o">...</span> <span class="p">}</span>
+
+<span class="nc">.header <span class="p">{</span></span>
+  <span class="nc">.site-nav</span> <span class="p">{</span>
+    <span class="nc">li</span> <span class="p">{</span>
+      <span class="nc">a</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c">/* Good Sass */</span>
+<span class="nc">.header</span> <span class="p">{</span></span> <span class="o">...</span> <span class="p">}</span>
+<span class="nc">.site-nav</span> <span class="p">{</span>
+  <span class="nc">li</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+  <span class="nc">a</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+
+<div class="section" id="sass-resources">
+  <div class="col">
+    <h3>Sass resources</h3>
+    <p>An list of good Sass resources and concepts, some might transform themselves into project guidelines in time.</p>
+    <ul>
+      <li><a href="http://thesassway.com/intermediate/a-standard-module-definition-for-sass">A standard module definition for Sass</a></li>
+      <li>Sass variables section of <a href="http://mvcss.github.io/styleguide/naming/">MVCSS Naming conventions</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<!--
+
+#### Tagging code
+
+If you write a new component then leave some tags pertaining to its function in
+a comment above it, for example:
+
+    /**
+     * ^navigation ^lists
+     */
+    .nav {}
+
+    /**
+     * ^grids ^lists ^tables
+     */
+    .matrix {}
+
+These tags allow other developers to find snippets of code by searching for
+function; if a developer needs to work with lists they can run a find for
+`^lists` and find the `.nav` and `.matrix` objects (and possibly more).
+
+
+
+
+
+
+## Sizing UIs
+
+I use a combination of methods for sizing UIs. Percentages, pixels, ems, rems
+and nothing at all.
+
+Grid systems should, ideally, be set in percentages. Because I use grid systems
+to govern widths of columns and pages, I can leave components totally free of
+any dimensions (as discussed above).
+
+Font sizes I set in rems with a pixel fallback. This gives the accessibility
+benefits of ems with the confidence of pixels. Here is a handy Sass mixin to
+work out a rem and pixel fallback for you (assuming you set your base font
+size in a variable somewhere):
+
+    @mixin font-size($font-size) {
+        font-size: $font-size +px;
+        font-size: $font-size / $base-font-size +rem;
+    }
+
+I only use pixels for items whose dimensions were defined before the came into
+the site. This includes things like images and sprites whose dimensions are
+inherently set absolutely in pixels.
+
+
+### Font sizing
+
+I define a series of classes akin to a grid system for sizing fonts. These
+classes can be used to style type in a double stranded heading hierarchy. For a
+full explanation of how this works please refer to my article
+[Pragmatic, practical font-sizing in CSS](http://csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css)
+
+
+
+##
+## Order of properties
+
+Order of properties should have the following structure: box model, typography and graphic layer. The order of properties shown below is not strict but shows the how the order is structured; properties belonging to the positioning goes first, then the box model, followed by graphic layer properties and typography properties are added last. Misc properties come after typography properties.
+
+```css
+selector {
+  display: ;
+  visibility: ;
+  float: ;
+  clear: ;
+  position: ;
+  top: ;
+  right: ;
+  bottom: ;
+  left: ;
+  z-index: ;
+  width: ;
+  min-width: ;
+  max-width: ;
+  height: ;
+  min-height: ;
+  max-height: ;
+  overflow: ;
+  margin: ;
+  padding: ;
+  border: ;
+  outline: ;
+  list-style: ;
+  table-layout: ;
+  caption-side: ;
+  border-collapse: ;
+  border-spacing: ;
+  empty-cells: ;
+  background: ;
+  background-color: ;
+  background-image: ;
+  background-repeat: ;
+  background-position: ;
+  color: ;
+  font: ;
+  font-family: ;
+  font-size: ;
+  line-height: ;
+  font-weight: ;
+  text-align: ;
+  text-indent: ;
+  text-transform: ;
+  text-decoration: ;
+  letter-spacing: ;
+  word-spacing: ;
+  white-space: ;
+  vertical-align: ;
+  cursor: ;
+  content: ;
+  quotes: ;
+  opacity: ;
+}
+
+-->
+
+
+<footer class="footer">
+<!--
+  <p>Heavily inspired by <a href="http://mdo.github.io/code-guide/">Code Guide by @mdo</a>, <a href="http://xhtmlized.com/blog/making-our-coding-standards-public/">xhtmlized</a>, <a href="https://github.com/necolas/idiomatic-css">Idiomatic CSS</a>, <a href="https://github.com/styleguide/">Github Styleguide</a> and <a href="https://github.com/csswizardry/CSS-Guidelinesji">CSS guidelines by Harry Roberts</a></p>
+-->
+
+  <br>
+  <a class="logo" href="index.html"><img src="" alt="">XX</a>
+</footer>
+
+</body>
+
+</html>

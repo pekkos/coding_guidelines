@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link href="public/ico/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <title>
+      Bilia Web Code Guidelines
+    </title>
+
+    <link rel="stylesheet" href="css/mdo.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Mono&subset=latin,cyrillic">
+
+  </head>
+  <body>
+
+    <header class="masthead">
+  <div class="container">
+    <span class="icon">&#9997;</span>
+    <h1><a href="index.html">Bilia Web Code Guidelines</a></h1>
+    <p class="lead">Standards for developing flexible, durable, and sustainable <a href="html.html">HTML</a>, <a href="css.html">CSS</a> and <a href="js.html">Javascript</a>.</p>
+  </div>
+</header>
+
+
+    <div class="heading" id="toc">
+  <h2>Table of contents</h2>
+</div>
+<div class="section toc">
+  <div class="col">
+    <ul>
+      <li><a href="#golden-rule">Golden rule</a></li>
+      <li><a href="#editor-prefs">Editor preferences</a></li>
+      <li><a href="#required-apps">Required tools and apps</a></li>
+      <li><a href="#pattern-library">Pattern library</a></li>
+      <li><a href="#atomic-design">Atomic Design</a></li>
+    </ul>
+  </div>
+  <div class="col">
+<!--    <h4><a href="#css">CSS</a></h4>
+    <ul>
+      <li><a href="#css-syntax">CSS syntax</a></li>
+      <li><a href="#css-declaration-order">Declaration order</a></li>
+    </ul>
+-->
+  </div>
+</div>
+
+
+<div class="section" id="golden-rule">
+  <div class="col">
+    <h2>Golden rule</h2>
+    <p>Enforce these agreed upon guidelines at all times..</p>
+  </div>
+  <div class="col">
+    <blockquote>
+      <p>Every line of code should appear to be written by a single person, no matter the number of contributors.</p>
+    </blockquote>
+  </div>
+</div>
+
+
+
+<!--
+<div class="heading" id="html">
+  <h2>HTML</h2>
+</div>
+-->
+
+<div class="section" id="editor-prefs">
+  <div class="col">
+    <h3>Editor preferences</h3>
+    <p>Set your editor to the following settings to avoid common code inconsistencies and dirty diffs:</p>
+    <ul>
+      <li>Use soft-tabs set to two spaces.</li>
+      <li>Trim trailing white space on save.</li>
+      <li>Set encoding to UTF-8.</li>
+      <li>Add new line at end of files.</li>
+    </ul>
+    <p>These preferences are documented in the <code>.editorconfig</code> <a href="../.editorconfig">file.</a></p>
+	<p>Learn more <a href="http://editorconfig.org">about EditorConfig</a> and <a href="http://editorconfig.org/#download">download a plugin</a> for your text editor.</p>
+  </div>
+
+<div class="col">
+
+  <div class="highlight"><pre><code class="html"><span class="c"># EditorConfig: http://EditorConfig.org</span>
+
+<span class="c">[*]</span>
+<span class="nt">indent_style =</span> <span class="na">space</span>
+<span class="nt">indent_size =</span> <span class="na">2</span>
+<span class="nt">end_of_line =</span> <span class="na">lf</span>
+<span class="nt">charset =</span> <span class="na">utf-8</span>
+<span class="nt">trim_trailing_whitespace =</span> <span class="na">true</span>
+<span class="nt">insert_final_newline =</span> <span class="na">true</span>
+  </code></pre></div>
+</div>
+
+</div>
+
+
+<div class="section" id="required-apps">
+  <div class="col">
+    <h3>Required tools and apps</h3>
+    <p>The front end work is done locally outside of the Visual Studio environment, so make sure you have the required tools and apps up and running.</p>
+
+    <h4>Web server</h4>
+    <p>You need a local Apache web server with PHP to host your development files. Try one of these: <a href="https://www.apachefriends.org/index.html">XAMPP</a>, <a href="http://www.mamp.info/en/">MAMP</a> or <a href="http://www.ampps.com">AMPPS</a>.
+
+    <h4>Text editor</h4>
+    <p>Your text editor of choice. A few recommendations:</p>
+    <ul>
+      <li><a href="http://www.sublimetext.com">Sublime Text</a> (Mac and Windows)</li>
+      <li><a href="http://macromates.com">TextMate</a> (Mac only)</li>
+      <li><a href="http://atom.io">Atom</a> (Mac and Windows)</li>
+    </ul>
+
+    <h4>Sass compiler</h4>
+    <p>You need a good Sass compiler app. Go with <a href="https://incident57.com/codekit/">CodeKit</a> (Mac only) or <a href="http://alphapixels.com/prepros/">PrePros</a>. There is also the choice of <a href="http://koala-app.com/">Koala</a>, but it lacks JS concatenating and such.
+
+  </div>
+</div>
+
+
+<div class="section" id="pattern-library">
+  <div class="col">
+    <h3>Pattern library</h3>
+    <p>The front end environment consists of a Pattern Lab instance (http://patternlab.io/), where development is made in the Source folder, while the Public folder contains a generated static site that showcases various partials and templates that are being developed. Pattern Lab is a tool built around the principles of <a href="#atomic-design">Atomic Design</a>.</p>
+  </div>
+  <div class="col">
+
+    <span class="atom"></span>
+    <style>
+    .atom {
+      display: block;
+      width: 5rem;
+      height: 5rem;
+      margin: 0 auto;
+      background: url(http://patternlab.io/assets/icon-atom.svg) no-repeat;
+      background-size: 100% 100%;
+      -webkit-animation: rotation 10s linear infinite;
+      -moz-animation: rotation 10s linear infinite;
+      -o-animation: rotation 10s linear infinite;
+      animation: rotation 10s linear infinite;
+    }
+    </style>
+  </div>
+</div>
+
+
+<div class="section" id="atomic-design">
+  <div class="col">
+    <h3>Atomic Design</h3>
+    <p>Atomic design provides a clear methodology for crafting design systems. Clients and team members are able to better appreciate the concept of design systems by actually seeing the steps laid out in front of them.</p>
+
+    <h4>Atoms</h4>
+    <p>Atoms are the basic building blocks of matter. Applied to web interfaces, atoms are our HTML tags, such as a form label, an input or a button.</p>
+
+    <h4>Molecules</h4>
+    <p>Molecules are groups of atoms bonded together to build up a function, such as a search function containing a label, a text input field and a button.</p>
+
+    <h4>Organisms</h4>
+    <p>Molecules give us some building blocks to work with, and we can now combine them together to form organisms. A header would be an organism, where the search function would be on eof it's molecules.</p>
+
+    <h4>Templates</h4>
+    <p>Templates consist mostly of groups of organisms stitched together to form pages.</p>
+
+    <h4>Pages</h4>
+    <p>Pages are specific instances of templates. Here, placeholder content is replaced with real representative content to give an accurate depiction of what a user will ultimately see.</p>
+
+  </div>
+  <div class="col">
+    <blockquote>
+      <p>By assembling rather than deconstructing, we’re crafting a system right out of the gate instead of cherry picking patterns after the fact.<br<span style="display: block;text-align: right">&mdash;Brad Frost</span></p>
+    </blockquote>
+
+    <h4>Essential reading</h4>
+    <ul>
+      <li><a href="http://bradfrostweb.com/blog/post/atomic-web-design/">Blog post</a> about Atomic Design</li>
+      <li><a href="http://www.slideshare.net/bradfrostweb/atomic-design">Slides</a> to a presentation of Atomic Design and Pattern Lab</li>
+      <li><a href="http://vimeo.com/67476280">Video</a> of a presentation of Atomic Design and Pattern Lab</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<!--
+
+## Line endings
+
+Format files with \n as the line ending (Unix line endings). Do not use \r\n (Windows line endings) or \r (Apple OS's).
+
+-->
+
+
+<footer class="footer">
+<!--
+  <p>Heavily inspired by <a href="http://mdo.github.io/code-guide/">Code Guide by @mdo</a>, <a href="http://xhtmlized.com/blog/making-our-coding-standards-public/">xhtmlized</a>, <a href="https://github.com/necolas/idiomatic-css">Idiomatic CSS</a>, <a href="https://github.com/styleguide/">Github Styleguide</a> and <a href="https://github.com/csswizardry/CSS-Guidelinesji">CSS guidelines by Harry Roberts</a></p>
+-->
+  <br>
+  <a class="logo" href="index.html"><img src="" alt="">XX</a>
+</footer>
+
+</body>
+
+</html>
